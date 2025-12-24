@@ -1,3 +1,4 @@
+const API_BASE = (location.port === '8000') ? 'http://localhost:3000' : '';
 class MeetingMinutesApp {
     constructor() {
         this.secretaryPad = null;
@@ -43,7 +44,7 @@ class MeetingMinutesApp {
 
     async checkAuth() {
         try {
-            const response = await fetch('/api/check-auth', { credentials: 'include' });
+            const response = await fetch(API_BASE + '/api/check-auth', { credentials: 'include' });
             const data = await response.json();
             
             if (data.authenticated) {
@@ -128,7 +129,7 @@ class MeetingMinutesApp {
         });
 
         navLogout.addEventListener('click', async () => {
-            await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+            await fetch(API_BASE + '/api/logout', { method: 'POST', credentials: 'include' });
             window.location.href = '/login.html';
         });
     }
@@ -657,15 +658,15 @@ class MeetingMinutesApp {
             }
             try {
                 const formData = this.getFormData();
-            const response = await fetch(`/api/meetings/${this.currentMeetingId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    chairmanSignature: this.chairmanSigData
-                }),
-                credentials: 'include'
-            });
+                const response = await fetch(API_BASE + `/api/meetings/${this.currentMeetingId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...formData,
+                        chairmanSignature: this.chairmanSigData
+                    }),
+                    credentials: 'include'
+                });
                 const result = await response.json();
                 if (result.success) {
                     this.showMessage('تم اعتماد المحضر بنجاح', 'success');
@@ -684,7 +685,7 @@ class MeetingMinutesApp {
             }
             const formData = this.getFormData();
             try {
-                const response = await fetch('/api/meetings', {
+                const response = await fetch(API_BASE + '/api/meetings', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData),
@@ -707,7 +708,7 @@ class MeetingMinutesApp {
         try {
             const payload = this.getFormData();
             this.showMessage('جاري التحليل بالذكاء الاصطناعي...', 'info');
-            const response = await fetch('/api/ai/assist', {
+            const response = await fetch(API_BASE + '/api/ai/assist', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -772,7 +773,7 @@ class MeetingMinutesApp {
         const formData = this.getFormData();
         try {
             this.showMessage('جاري إنشاء ملف PDF...', 'info');
-            const response = await fetch('/api/generate-pdf', {
+            const response = await fetch(API_BASE + '/api/generate-pdf', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -800,7 +801,7 @@ class MeetingMinutesApp {
         list.innerHTML = '<tr><td colspan="7" class="loading">جاري التحميل...</td></tr>';
         
         try {
-            const response = await fetch('/api/meetings');
+            const response = await fetch(API_BASE + '/api/meetings', { credentials: 'include' });
             this.allMeetings = await response.json();
             this.renderMeetings(this.allMeetings);
         } catch (error) {
