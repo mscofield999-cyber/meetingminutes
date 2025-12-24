@@ -2,7 +2,7 @@ services:
   - type: web
     name: meeting-minutes
     env: node
-    rootDirectory: server
+    rootDir: server
     buildCommand: npm install
     startCommand: npm start
     disk:
@@ -19,6 +19,6 @@ services:
       - key: CORS_ORIGIN
         value: https://meetingminutes-chi.vercel.app
       - key: SESSION_COOKIE_SECURE
-        value: true
+        value: "true"
       - key: OPENAI_API_KEY
         value: ""
