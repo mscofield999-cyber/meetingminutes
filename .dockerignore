@@ -1,0 +1,8 @@
+node_modules
+server/node_modules
+.git
+.gitignore
+*.sqlite
+server/database.sqlite
+dist
+build
