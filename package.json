@@ -1,19 +1,10 @@
 {
-  "name": "enterprise-meeting-minutes",
+  "name": "meeting-minutes-vercel",
   "private": true,
-  "version": "0.1.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "build": "echo build",
-    "test": "echo test",
-    "lint": "echo lint"
-  },
+  "version": "1.0.0",
+  "type": "commonjs",
   "dependencies": {
-    "html2canvas": "^1.4.1",
-    "jspdf": "^3.0.4",
-    "signature_pad": "^5.1.3"
+    "firebase-admin": "^12.5.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
