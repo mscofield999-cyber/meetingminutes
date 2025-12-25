@@ -1,6 +1,7 @@
 const { clearSessionCookie } = require('../lib/session');
+const allowCors = require('../lib/cors');
 
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   clearSessionCookie(res);
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ success: true }));
